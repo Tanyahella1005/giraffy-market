@@ -35,9 +35,19 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     scroll-behavior: smooth;
-   
-    
-    
+
+}
+
+html {
+    overflow-y: scroll;
+    /* або auto */
+}
+
+body.lock-scroll {
+    /* Якщо хочеш блокувати прокрутку, але не прибирати скрол */
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
 }
 
 /* Хедер */
@@ -53,6 +63,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 1100;
+    width: 100vw;
+        /* Розтягнути на всю ширину вікна */
 }
 
 .top-header-left a,
@@ -90,6 +102,7 @@ body {
 .help-menu-wrapper {
     position: relative;
     display: inline-block;
+    padding-right: 70px;
 }
 
 .help-toggle {
@@ -103,13 +116,14 @@ body {
     align-items: center;
     gap: 6px;
     padding: 0;
+        
 }
 
 .help-dropdown {
     display: none;
     position: absolute;
     top: 120%;
-    right: 0;
+    right: 0px;;
     background: rgb(249, 248, 245);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
@@ -192,18 +206,11 @@ body {
     background: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    width: 100vw;
+        /* Розтягнути на всю ширину вікна */
 }
 
-#mainHeader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10000;
-    background: white;
-    /* Обов'язково або твій власний фон */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
+
 
 .header-left,
 .header-right {
@@ -304,12 +311,14 @@ body {
 .location {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
     cursor: pointer;
     font-size: 14px;
     padding: 8px 12px;
     border-radius: 20px;
     transition: background 0.2s;
+    margin-right: 16px;
+        /* Відсунути лівіше від правого краю або наступного елемента */
 }
 
 .location:hover {
@@ -318,13 +327,17 @@ body {
 
 .header-icons {
     display: flex;
-    gap: 12px;
+    gap: 5px;
+    padding-right: 80px;
+    /* або margin-right: 20px; */
 }
 
 .language-selector {
     position: relative;
     display: inline-block;
     font-size: 14px;
+    margin-right: 16px;
+        /* Або більше, залежно від того, скільки потрібно простору */
 }
 
 .lang-btn {
@@ -435,7 +448,7 @@ body {
 
 .sidebar {
     position: fixed;
-    top: 60px;
+    top: 87px;
     left: -300px;
     width: 245px;
     height: calc(100vh - 60px);
@@ -540,7 +553,7 @@ body.menu-open {
 .subcategories-container {
     position: fixed;
     left: 247px;
-    top: 60px;
+    top: 87px;
     width: 200px;
     height: calc(100vh - 60px);
     background: var(--light);
@@ -602,32 +615,6 @@ body.menu-open {
     margin-right: 8px;
 }
 
-@media (max-width: 768px) {
-    .main-header {
-        height: 50px;
-        padding: 5px 10px;
-    }
-
-    .logo-animation {
-        width: 30px !important;
-        height: 30px !important;
-    }
-
-    .logo span {
-        font-size: 18px;
-    }
-
-    .search-bar {
-        display: none;
-        /* Приховати пошук на мобільних */
-    }
-
-    .location,
-    .language-selector {
-        display: none;
-        /* Приховати локацію та мову */
-    }
-}
 
 /* Головний контент */
 .container {
@@ -1483,10 +1470,30 @@ footer {
 
 /* Адаптація */
 @media (max-width: 768px) {
+
+    /* Загальні стилі */
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .section-title a {
+        font-size: 13px;
+    }
+
+    /* Хедер */
     .main-header {
         padding: 12px 16px;
         flex-wrap: wrap;
         gap: 8px;
+        height: auto;
         position: sticky;
         top: 0;
     }
@@ -1498,23 +1505,27 @@ footer {
         justify-content: space-between;
     }
 
-    .logo {
-        font-size: 24px;
-        margin-left: 0;
-    }
-
     .logo-animation {
         width: 40px;
         height: 40px;
     }
 
-    .burger-menu {
-        margin-left: 0;
+    .logo span {
         font-size: 20px;
     }
 
-    .header-icons {
-        gap: 8px;
+    .burger-menu {
+        font-size: 22px;
+        margin-left: 0;
+    }
+
+    .search-bar {
+        display: none;
+    }
+
+    .location,
+    .language-selector {
+        display: none;
     }
 
     .icon-btn {
@@ -1522,35 +1533,25 @@ footer {
         height: 32px;
         font-size: 14px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Сайдбар */
     .sidebar {
         width: 85%;
         top: 60px;
     }
 
     .subcategories-container {
-        width: 85%;
-        top: 60px;
+        left: 100% !important;
+        top: 60px !important;
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
     }
 
     .category-item {
         padding: 10px 16px;
     }
-}
-@media (max-width: 768px) {
-    .subcategories-container {
-        left: 100% !important;
-        /* Підкатегорії на весь екран */
-        top: 60px !important;
-        /* Нижче мобільного хедера */
-        width: 100vw !important;
-        height: calc(100vh - 60px) !important;
-    }
-}
 
-@media (max-width: 768px) {
+    /* Банер */
     .banner {
         padding: 20px 16px;
         height: auto;
@@ -1579,9 +1580,8 @@ footer {
         padding: 10px 20px;
         font-size: 14px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Категорії */
     .categories-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
@@ -1597,6 +1597,7 @@ footer {
         font-size: 16px;
     }
 
+    /* Товари */
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -1605,9 +1606,8 @@ footer {
     .product-image {
         height: 120px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Футер */
     .footer-container {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1625,9 +1625,8 @@ footer {
     .footer-logo span {
         font-size: 20px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Чат */
     #chat-widget {
         bottom: 20px;
         right: 20px;
@@ -1644,28 +1643,28 @@ footer {
         right: 20px;
         width: calc(100% - 40px);
     }
-}
 
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
+    /* Додатково — допомога, мови */
+    .top-header {
+        font-size: 12px;
+        padding: 4px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
     }
 
-    .container {
-        padding: 0 16px;
+    .top-header-left,
+    .top-header-right {
+        flex-wrap: wrap;
     }
 
-    .section-title {
-        font-size: 20px;
+    .help-menu-wrapper {
+        padding-right: 0;
     }
 
-    .section-title a {
-        font-size: 13px;
-    }
-
-    /* Приховуємо деякі елементи на мобільних */
-    .location,
-    .language-selector {
-        display: none;
+    .help-dropdown {
+        right: 0;
+        left: auto;
+        min-width: 220px;
     }
 }
